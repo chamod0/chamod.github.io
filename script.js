@@ -127,5 +127,3 @@ function calculateYears(startYear) {
 
 document.getElementById("yearsCount").textContent = calculateYears(2021);
 
-// Remove the duplicate theme code we added earlier
-// The following code is now integrated into the existing theme system above
