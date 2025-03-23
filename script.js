@@ -7,15 +7,22 @@ function toggleMenu() {
   icon.classList.toggle("open");
 }
 
+// Initialize theme on page load
+document.addEventListener('DOMContentLoaded', function() {
+  // Set dark theme as default if no theme is stored
+  const currentTheme = localStorage.getItem("theme") || "dark";
+  
+  if (currentTheme === "dark") {
+    setDarkMode();
+  } else {
+    setLightMode();
+  }
+});
+
 // Dark / light mode
 const btn = document.getElementById("modeToggle");
 const btn2 = document.getElementById("modeToggle2");
 const themeIcons = document.querySelectorAll(".icon");
-const currentTheme = localStorage.getItem("theme");
-
-if (currentTheme === "dark") {
-  setDarkMode();
-}
 
 btn.addEventListener("click", function () {
   setTheme();
@@ -37,19 +44,25 @@ function setTheme() {
 
 function setDarkMode() {
   document.body.setAttribute("theme", "dark");
+  document.documentElement.setAttribute('data-theme', 'dark');
   localStorage.setItem("theme", "dark");
 
   themeIcons.forEach((icon) => {
-    icon.src = icon.getAttribute("src-dark");
+    if (icon.hasAttribute("src-dark")) {
+      icon.src = icon.getAttribute("src-dark");
+    }
   });
 }
 
 function setLightMode() {
   document.body.removeAttribute("theme");
+  document.documentElement.setAttribute('data-theme', 'light');
   localStorage.setItem("theme", "light");
 
   themeIcons.forEach((icon) => {
-    icon.src = icon.getAttribute("src-light");
+    if (icon.hasAttribute("src-light")) {
+      icon.src = icon.getAttribute("src-light");
+    }
   });
 }
 
@@ -114,36 +127,5 @@ function calculateYears(startYear) {
 
 document.getElementById("yearsCount").textContent = calculateYears(2021);
 
-// Add this at the beginning of your script.js file
-document.addEventListener('DOMContentLoaded', function() {
-  // Set dark theme as default
-  const currentTheme = localStorage.getItem('theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', currentTheme);
-  
-  // Update all theme-dependent images
-  updateThemeImages(currentTheme);
-  
-  // Set up event listeners for theme toggle buttons
-  document.getElementById('modeToggle').addEventListener('click', toggleTheme);
-  document.getElementById('modeToggle2').addEventListener('click', toggleTheme);
-});
-
-function updateThemeImages(theme) {
-  // Update all images with src-light and src-dark attributes
-  const themeImages = document.querySelectorAll('[src-light][src-dark]');
-  themeImages.forEach(img => {
-    img.src = theme === 'light' ? img.getAttribute('src-light') : img.getAttribute('src-dark');
-  });
-}
-
-// If you already have a toggleTheme function, modify it to include updateThemeImages
-// Otherwise, add this function
-function toggleTheme() {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
-  
-  updateThemeImages(newTheme);
-}
+// Remove the duplicate theme code we added earlier
+// The following code is now integrated into the existing theme system above
