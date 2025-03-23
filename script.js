@@ -6,7 +6,7 @@ function toggleMenu() {
   menu.classList.toggle("open");
   icon.classList.toggle("open");
 }
-
+document.getElementById("yearsCount").textContent = calculateYears(2021);
 // Initialize theme on page load
 document.addEventListener('DOMContentLoaded', function() {
   // Set dark theme as default if no theme is stored
@@ -125,5 +125,5 @@ function calculateYears(startYear) {
   return currentYear - startYear;
 }
 
-document.getElementById("yearsCount").textContent = calculateYears(2021);
+
 
