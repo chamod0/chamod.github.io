@@ -1,3 +1,5 @@
+
+
 function toggleMenu() {
   const menu = document.querySelector(".menu-links");
   const icon = document.querySelector(".hamburger-icon");
@@ -111,3 +113,35 @@ function calculateYears(startYear) {
 }
 
 document.getElementById("yearsCount").textContent = calculateYears(2021);
+
+// Add this at the beginning of your script.js file
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if theme is already set (from previous visits)
+  const currentTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  
+  // Update toggle button images based on current theme
+  updateThemeImages(currentTheme);
+  
+  // Set up event listeners for theme toggle buttons
+  document.getElementById('modeToggle').addEventListener('click', toggleTheme);
+  document.getElementById('modeToggle2').addEventListener('click', toggleTheme);
+});
+
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  
+  updateThemeImages(newTheme);
+}
+
+function updateThemeImages(theme) {
+  // Update all images with src-light and src-dark attributes
+  const themeImages = document.querySelectorAll('[src-light][src-dark]');
+  themeImages.forEach(img => {
+    img.src = theme === 'light' ? img.getAttribute('src-light') : img.getAttribute('src-dark');
+  });
+}
