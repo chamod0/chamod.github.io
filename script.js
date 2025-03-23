@@ -116,11 +116,11 @@ document.getElementById("yearsCount").textContent = calculateYears(2021);
 
 // Add this at the beginning of your script.js file
 document.addEventListener('DOMContentLoaded', function() {
-  // Check if theme is already set (from previous visits)
+  // Set dark theme as default
   const currentTheme = localStorage.getItem('theme') || 'dark';
   document.documentElement.setAttribute('data-theme', currentTheme);
   
-  // Update toggle button images based on current theme
+  // Update all theme-dependent images
   updateThemeImages(currentTheme);
   
   // Set up event listeners for theme toggle buttons
@@ -128,6 +128,16 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('modeToggle2').addEventListener('click', toggleTheme);
 });
 
+function updateThemeImages(theme) {
+  // Update all images with src-light and src-dark attributes
+  const themeImages = document.querySelectorAll('[src-light][src-dark]');
+  themeImages.forEach(img => {
+    img.src = theme === 'light' ? img.getAttribute('src-light') : img.getAttribute('src-dark');
+  });
+}
+
+// If you already have a toggleTheme function, modify it to include updateThemeImages
+// Otherwise, add this function
 function toggleTheme() {
   const currentTheme = document.documentElement.getAttribute('data-theme');
   const newTheme = currentTheme === 'light' ? 'dark' : 'light';
@@ -136,12 +146,4 @@ function toggleTheme() {
   localStorage.setItem('theme', newTheme);
   
   updateThemeImages(newTheme);
-}
-
-function updateThemeImages(theme) {
-  // Update all images with src-light and src-dark attributes
-  const themeImages = document.querySelectorAll('[src-light][src-dark]');
-  themeImages.forEach(img => {
-    img.src = theme === 'light' ? img.getAttribute('src-light') : img.getAttribute('src-dark');
-  });
 }
