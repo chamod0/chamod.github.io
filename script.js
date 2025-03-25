@@ -7,6 +7,7 @@ function toggleMenu() {
   icon.classList.toggle("open");
 }
 document.getElementById("yearsCount").textContent = calculateYears(2021);
+document.getElementById("yearsCount2").textContent = calculateYears(2021);
 // Initialize theme on page load
 document.addEventListener('DOMContentLoaded', function() {
   // Set dark theme as default if no theme is stored
